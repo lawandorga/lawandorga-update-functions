@@ -3,7 +3,7 @@ from src.config import config
 
 
 def service(service_func, *args, **kwargs):
-    service_func(config.UNIT_OF_WORK, config.REPOSITORY, *args, **kwargs)
+    service_func(config.UNIT_OF_WORK, *args, **kwargs)
 
 
 def build_response(data={}, status=200):
@@ -17,19 +17,20 @@ def build_response(data={}, status=200):
 
 
 def get_status(event, context):
-    """ return true or false depending on the udpate counter """
+    """ return true or false depending on an update in progress """
 
-    updates = config.REPOSITORY.get_updates()
-    data = {
-        "updating": bool(len(updates)),
-        "updates": list(map(lambda x: x[0], updates))
-    }
+    with config.UNIT_OF_WORK as uow:
+        updates = uow.repository.get_updates()
+        data = {
+            "updating": bool(len(updates)),
+            "updates": list(map(lambda x: x[0], updates))
+        }
 
     return build_response(data)
 
 
 def start_update(event, context):
-    """ count up the update counter """
+    """ start an update """
     
     try:
         name = event['queryStringParameters']['name']
@@ -43,7 +44,7 @@ def start_update(event, context):
 
 
 def finish_update(event, context):
-    """ count down the update counter """
+    """ finish an update """
 
     try:
         name = event['queryStringParameters']['name']
@@ -57,4 +58,5 @@ def finish_update(event, context):
 
 
 # service(add_update, '123')
-print(get_status(None, None))
+# config.REPOSITORY.connection.close()
+# print(get_status(None, None))

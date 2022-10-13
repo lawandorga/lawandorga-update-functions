@@ -21,12 +21,10 @@ env_config = EnvConfig()
 
 
 POSTGRES_UNIT_OF_WORK = PostgresUnitOfWork(env_config.PGHOST, env_config.PGUSER, env_config.PGDATABASE, env_config.PGPASSWORD, env_config.PGPORT)
-POSTGRES_REPOSITORY = PostgresRepository(POSTGRES_UNIT_OF_WORK.connection)
 
 
 class Config:
     UNIT_OF_WORK: AbstractUnitOfWork = POSTGRES_UNIT_OF_WORK
-    REPOSITORY: AbstractRepository = POSTGRES_REPOSITORY
 
 
 config = Config()
