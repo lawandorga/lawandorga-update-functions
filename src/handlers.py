@@ -57,4 +57,4 @@ def finish_update(event, context):
 
 
 # service(add_update, '123')
-# print(get_status(None, None))
+print(get_status(None, None))
