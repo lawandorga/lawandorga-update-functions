@@ -1,8 +1,6 @@
 # Custom
-*.zip
 node_modules
 package
-serverless.yml
 .serverless
 
 # Byte-compiled / optimized / DLL files

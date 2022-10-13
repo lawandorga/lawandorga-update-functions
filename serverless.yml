@@ -1,0 +1,40 @@
+service: lawandorga-update-functions
+configValidationMode: off
+useDotenv: true
+provider:
+  name: scaleway
+  runtime: python310
+  env:
+    PGHOST: ${env:PGHOST}
+    PGUSER: ${env:PGUSER}
+    PGDATABASE: ${env:PGDATABASE}
+    PGPASSWORD: ${env:PGPASSWORD}
+    PGPORT: ${env:PGPORT}
+  scwProject: ${env:SCWPROJECT}
+  scwToken: ${env:SCWTOKEN}
+
+plugins:
+  - serverless-scaleway-functions
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.gitignore'
+    - '!.git/**'
+
+functions:
+  status:
+    handler: src/handlers.get_status
+    minScale: 1
+    maxScale: 2
+    memorylimit: 256
+  start-update:
+    handler: src/handlers.start_update
+    minScale: 0
+    maxScale: 1
+    memorylimit: 512
+  finish-update:
+    handler: src/handlers.finish_update
+    minScale: 0
+    maxScale: 1
+    memorylimit: 512

@@ -4,7 +4,7 @@ import abc
 
 class AbstractRepository(abc.ABC):
     @abc.abstractmethod
-    def get_update_count(self):
+    def get_updates(self):
         raise NotImplementedError
 
     @abc.abstractmethod

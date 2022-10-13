@@ -19,7 +19,11 @@ def build_response(data={}, status=200):
 def get_status(event, context):
     """ return true or false depending on the udpate counter """
 
-    data = config.DEFAULT_REPOSITORY.get_update_count()
+    updates = config.REPOSITORY.get_updates()
+    data = {
+        "updating": bool(len(updates)),
+        "updates": list(map(lambda x: x[0], updates))
+    }
 
     return build_response(data)
 
@@ -30,7 +34,7 @@ def start_update(event, context):
     try:
         name = event['queryStringParameters']['name']
     except KeyError:
-        data = {"message": "Name required as query parameter (name=update_name)."}
+        data = {"message": "Name required as query parameter (?name=update_name)."}
         return build_response(data, 400)
     
     service(add_update, name)
@@ -44,7 +48,7 @@ def finish_update(event, context):
     try:
         name = event['queryStringParameters']['name']
     except KeyError:
-        data = {"message": "Name required as query parameter (name=update_name)."}
+        data = {"message": "Name required as query parameter (?name=update_name)."}
         return build_response(data, 400)
 
     service(remove_update, name)
@@ -52,5 +56,5 @@ def finish_update(event, context):
     return build_response()
 
 
-service(add_update, '123')
-print(get_status(None, None))
+# service(add_update, '123')
+# print(get_status(None, None))

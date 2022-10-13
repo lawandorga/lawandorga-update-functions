@@ -12,7 +12,7 @@ class PostgresRepository(AbstractRepository):
         super().__init__()
         self.connection: "Connection" = connection
 
-    def get_update_count(self):
+    def get_updates(self):
         cursor = self.connection.cursor()
         cursor.execute("select * from main;")
         data = cursor.fetchall()
