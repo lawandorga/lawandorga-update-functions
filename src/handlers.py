@@ -56,5 +56,5 @@ def finish_update(event, context):
     return build_response()
 
 
-service(add_update, '123')
-print(get_status(None, None))
+# service(add_update, '123')
+# print(get_status(None, None))
