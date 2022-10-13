@@ -1,13 +1,11 @@
 {
-  "name": "lawandorga-status-function",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "lawandorga-update-functions",
+  "version": "0.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
   "devDependencies": {
     "serverless-python-requirements": "^5.4.0",
     "serverless-scaleway-functions": "^0.4.3"

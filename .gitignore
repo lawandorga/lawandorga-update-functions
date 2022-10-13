@@ -3,6 +3,7 @@
 node_modules
 package
 .serverless
+requirements.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
