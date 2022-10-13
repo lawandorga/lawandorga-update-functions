@@ -24,6 +24,11 @@ class PostgresRepository(AbstractRepository):
         
         cursor = self.connection.cursor()
         cursor.execute("insert into main values ('{}');".format(update.identifier))
+
+        cursor.execute("select * from main;")
+        data = cursor.fetchall()
+        print(data)
+
         cursor.close()
 
     def remove_update(self, identifier: str):

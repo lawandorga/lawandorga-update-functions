@@ -3,7 +3,7 @@ from src.config import config
 
 
 def service(service_func, *args, **kwargs):
-    service_func(config.DEFAULT_UNIT_OF_WORK, config.DEFAULT_REPOSITORY, *args, **kwargs)
+    service_func(config.UNIT_OF_WORK, config.REPOSITORY, *args, **kwargs)
 
 
 def build_response(data={}, status=200):
@@ -19,16 +19,9 @@ def build_response(data={}, status=200):
 def get_status(event, context):
     """ return true or false depending on the udpate counter """
 
-    return {
-        "body": {
-            "event": event,
-            "context": context,
-            "count": 0,
-            "updating": False,
-            "message": "Updates in progress. Errors can happen. We will be back to normal functionality soon."
-        },
-        "statusCode": 200
-    }
+    data = config.DEFAULT_REPOSITORY.get_update_count()
+
+    return build_response(data)
 
 
 def start_update(event, context):
@@ -59,4 +52,5 @@ def finish_update(event, context):
     return build_response()
 
 
-# print(start_update(None, None))
+service(add_update, '123')
+print(get_status(None, None))
